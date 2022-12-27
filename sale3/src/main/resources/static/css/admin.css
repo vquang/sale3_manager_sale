@@ -1,0 +1,73 @@
+.header {
+    height: 50px;
+    background-image: linear-gradient(45deg, #00ccff, #0033cc);
+}
+.admin, .login {
+    color: white;
+}
+.admin:hover {
+    color: #0099cc;
+}
+.login:hover {
+    color: #0099cc;
+}
+i:hover {
+    color: #0099cc;
+}
+.menu {
+    background-image: linear-gradient(180deg, #00ccff, #0033cc);
+    border-top:1px #f2f2f2 solid;
+}
+.menu-e {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 20px;
+    color:white;
+}
+.menu-e:hover {
+    color: #0099cc;
+}
+.active {
+    color: #0099cc;
+}
+.menu-b {
+    margin-top: 20px;
+    width: 20%;
+    height: 100px;
+    background-image: linear-gradient(100deg, #00ffff, #66ffcc);
+    display: flex;
+    font-size: 23px;
+    color: white;
+}
+.menu-b:hover {
+    cursor: pointer;
+    background-image: linear-gradient(45deg,#ffffff,#404040) !important;
+}
+kbd:hover {
+    background-color: #00ffff ;
+    cursor: pointer;
+}
+.CANCEL {
+    color: #669999;
+}
+.WAITING {
+    color: #00ff00;
+}
+.PAID {
+    color: #ff0066;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

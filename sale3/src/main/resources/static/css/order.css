@@ -1,0 +1,16 @@
+kbd:hover {
+    background-color: #ff9900 ;
+    cursor: pointer;
+}
+.page-link {
+    padding: 5px !important;
+}
+.pagination {
+    margin: 0 !important;
+}
+.span {
+    font-size: 20px !important;
+}
+::placeholder {
+    color:#e83e8c !important;
+}

@@ -1,0 +1,16 @@
+.header {
+    height: 50px;
+    background-image: linear-gradient(45deg, #ff9900, #ff6600);
+}
+.admin, .login {
+    color: white;
+}
+.admin:hover {
+    color: #ff3300;
+}
+.login:hover {
+    color: #ff3300;
+}
+i:hover {
+    color: #ff3300;
+}

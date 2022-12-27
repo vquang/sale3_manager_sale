@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>trang chủ</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- css -->
+    <link rel="stylesheet" th:href="@{/css/base.css}" href="../static/css/base.css">
+    <link rel="stylesheet" th:href="@{/css/home.css}" href="../static/css/home.css">
+    <link rel="stylesheet" th:href="@{/css/order.css}" href="../static/css/order.css">
+</head>
+<body>
+<div class="container-fluid h-100">
+    <div class="row header d-flex justify-content-between">
+        <div class="d-flex">
+            <a style="color:white" class="d-flex ml-3" href="http://localhost:8082/admin">
+                <div style="margin: auto">
+                <span class="admin">
+                    <i class="fa fa-database " aria-hidden="true"></i>
+                    Trang quản lý
+                </span>
+                </div>
+            </a>
+            <a style="color:white" class="d-flex ml-5" href="http://localhost:8082/login">
+                <div style="margin: auto">
+                <span class="login">
+                    <i class="fa fa-check-square" aria-hidden="true"></i>
+                    Đăng nhập
+                </span>
+                </div>
+            </a>
+        </div>
+        <div class="d-flex">
+            <div style="margin: auto; font-size: 25px; color: white">
+                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+            </div>
+            <div style="margin: auto; font-size: 25px; color: white" class="mx-5">
+                <i class="fa fa-user-circle" aria-hidden="true" onclick="callUser()"></i>
+            </div>
+        </div>
+        <!-- card user -->
+        <div class="card fixed-top user" style="top:40px; left:83%; width:200px; height:auto;">
+            <div class="card-header" style="padding: 1px; ">
+                <button type="button" class="btn btn-danger" onclick="document.querySelector('.user').style.display='none'">X</button>
+            </div>
+            <div class="card-body user-body"></div>
+            <div class="card-footer">
+                <a href="/logout"><p class="font-weight-bold" style="font-size: 20px;margin:0;"><code>Đăng xuất</code></p></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- order -->
+    <div class="row d-flex my-3" style="height:50px;">
+        <div class="alert alert-danger alert-cancel" style="margin: auto">
+            <strong>Hủy đơn hàng thành công!</strong>
+        </div>
+        <div class="alert alert-success alert-pay" style="margin: auto">
+            <strong>Thanh toán đơn hàng thành công!</strong>
+        </div>
+        <div class="alert alert-danger alert-error" style="margin: auto">
+            <strong>Vui lòng điền địa chỉ!</strong>
+        </div>
+        <div class="alert alert-primary alert-none" style="margin: auto">
+            <strong>Không có đơn hàng nào!</strong>
+        </div>
+    </div>
+    <div class="row order">
+        <div class="col-2"></div>
+        <div class="col-5 mr-3 py-3" style="background-color: white;">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Mã</th>
+                    <th>Tên Sản phẩm</th>
+                    <th>Giá tiền</th>
+                    <th>Số lượng</th>
+                    <th>Xóa</th>
+                </tr>
+                </thead>
+                <tbody class="items">
+                </tbody>
+            </table>
+        </div>
+        <div class="col-3 py-3" style="background-color: white;">
+            <div class="card" style="border:0;">
+                <form>
+                    <div class="input-group mb-3" >
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                Địa chỉ
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="địa chỉ" name="address">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                Tổng tiền
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="giá tiền" disabled name="cost">
+                    </div>
+                </form>
+                <div class="card-footer d-flex justify-content-around">
+                    <button type="button" class="btn btn-danger " data-toggle="modal" data-target="#myModal"
+                    onclick="changeOrder('cancel')">Hủy đơn hàng</button>
+                    <button type="button" class="btn btn-success " data-toggle="modal" data-target="#myModal"
+                            onclick="changeOrder('pay')">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>
+
+<!-- model -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger no" data-dismiss="modal">Không</button>
+                <button type="button" class="btn btn-success yes" data-dismiss="modal">Có</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- item detail -->
+<div class="container-fluid fixed-top h-100 cover" style="background-color: rgba(115, 115, 115, 0.5)">
+    <div class="row fixed-top d-flex" style="top:10px;">
+    </div>
+    <div class="row" style="margin-top:100px;">
+        <div class="col-4"></div>
+        <div class="col-4 product-detail" >
+
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+<!-- js -->
+<script src="../static/js/api.js" th:src="@{/js/api.js}"></script>
+<script src="../static/js/call-api.js" th:src="@{/js/call-api.js}"></script>
+<script src="../static/js/setup-api.js" th:src="@{/js/setup-api.js}"></script>
+<script src="../static/js/handle-api.js" th:src="@{/js/handle-api.js}"></script>
+<script src="../static/js/order-user.js" th:src="@{/js/order-user.js}"></script>
+</body>
+</html>

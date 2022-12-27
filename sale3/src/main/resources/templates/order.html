@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>đơn hàng</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- css -->
+    <link rel="stylesheet" th:href="@{/css/base.css}" href="../static/css/base.css">
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css">
+</head>
+<body>
+<div class="container-fluid h-100">
+    <div class="row header d-flex justify-content-between">
+        <div class="d-flex">
+            <a style="color:white" class="d-flex ml-3" href="http://localhost:8082/home">
+                <div style="margin: auto">
+                <span class="admin">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    Trang bán hàng
+                </span>
+                </div>
+            </a>
+            <a style="color:white" class="d-flex ml-5" href="http://localhost:8082/login">
+                <div style="margin: auto">
+                <span class="login">
+                    <i class="fa fa-check-square" aria-hidden="true"></i>
+                    Đăng nhập
+                </span>
+                </div>
+            </a>
+        </div>
+        <div class="d-flex">
+            <div style="margin: auto; font-size: 25px; color: white" class="mx-5">
+                <i class="fa fa-user-circle" aria-hidden="true" onclick="callUser()"></i>
+            </div>
+        </div>
+        <!-- card user -->
+        <div class="card fixed-top user" style="top:40px; left:83%; width:200px; height:auto;">
+            <div class="card-header" style="padding: 1px; ">
+                <button type="button" class="btn btn-danger" onclick="document.querySelector('.user').style.display='none'">X</button>
+            </div>
+            <div class="card-body user-body"></div>
+            <div class="card-footer">
+                <a href="/logout"><p class="font-weight-bold" style="font-size: 20px;margin:0;"><code>Đăng xuất</code></p></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- body -->
+    <div class="row h-100">
+        <div class="col-2 menu pt-3 d-flex flex-column">
+            <a href="http://localhost:8082/admin" class="menu-e "><i class="fa fa-home" aria-hidden="true" style="margin-right:5px;"></i>Trang Chủ</a>
+            <a href="http://localhost:8082/category" class="menu-e"><i class="fa fa-cubes" aria-hidden="true" style="margin-right:5px;"></i>Phân Loại</a>
+            <a href="http://localhost:8082/product" class="menu-e"><i class="fa fa-mobile" aria-hidden="true" style="margin-right:5px;"></i>Sản Phẩm</a>
+            <a href="http://localhost:8082/order-page" class="menu-e active"><i class="fa fa-book" aria-hidden="true" style="margin-right:5px;"></i>Đơn Hàng</a>
+        </div>
+        <div class="col-10">
+            <!-- table exist -->
+            <div class="container-fluid" style="border-top:2px #f2f2f2 solid">
+                <div class="row mt-2">
+                </div>
+                <div class="row mt-2" style="background-color: white;padding:1%;">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Trạng thái</th>
+                            <th>Tổng giá tiền</th>
+                            <th>địa chỉ</th>
+                            <th>username</th>
+                            <th>Thời gian tạo</th>
+                            <th>Xem chi tiết</th>
+                        </tr>
+                        </thead>
+                        <tbody class="orders"></tbody>
+                    </table>
+                </div>
+                <!-- page -->
+                <div class="page m-3 w-100">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item first"><a class="page-link a-first" onclick="callShowAllOrdersFromPage('first')">Trước</a></li>
+                        <li class="page-item now"><a class="page-link a-now" onclick="callShowAllOrdersFromPage('now')">1</a></li>
+                        <li class="page-item next"><a class="page-link a-next" onclick="callShowAllOrdersFromPage('next')">2</a></li>
+                        <li class="page-item last"><a class="page-link a-last" onclick="callShowAllOrdersFromPage('last')">Sau</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- base form -->
+<div class="container-fluid fixed-top h-100 base-form" style="background-color: rgba(77, 77, 77, 0.5);">
+    <div class="row mt-5 item-list">
+        <div class="col-3"></div>
+        <div class="col-6 card" style="padding:0">
+            <div class="card-header" style="padding: 2px;">
+                <button type="button" class="btn btn-danger" style="margin-bottom: 2px;" onclick="document.querySelector('.base-form').style.display='none'">X</button>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Tên Sản phẩm</th>
+                        <th>Giá tiền</th>
+                        <th>Số lượng</th>
+                        <th>Thời gian tạo</th>
+                        <th>Xem chi tiết</th>
+                    </tr>
+                    </thead>
+                    <tbody class="items">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row item-detail" style="margin-top:100px;">
+        <div class="col-4"></div>
+        <div class="col-4" >
+            <div class="product-detail"></div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+<!-- js -->
+<script src="../static/js/api.js" th:src="@{/js/api.js}"></script>
+<script src="../static/js/call-api.js" th:src="@{/js/call-api.js}"></script>
+<script src="../static/js/setup-api.js" th:src="@{/js/setup-api.js}"></script>
+<script src="../static/js/handle-api.js" th:src="@{/js/handle-api.js}"></script>
+<script src="../static/js/order.js" th:src="@{/js/order.js}"></script>
+</body>
+</html>
